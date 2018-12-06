@@ -93,6 +93,17 @@ class Todo extends Component {
     ));
   }
 
+  getShowCount() {
+    switch (this.state.filter) {
+      case 'todo':
+        return this.state.list.filter(t => !t.done).length;
+      case 'done':
+        return this.state.list.filter(t => t.done).length;
+      default:
+        return this.state.list.length;
+    }
+  }
+
   render() {
     return (
       <div style={appStyle}>
@@ -112,6 +123,9 @@ class Todo extends Component {
             <Radio value="todo">TODO</Radio>
             <Radio value="done">DONE</Radio>
           </RadioGroup>
+        </div>
+        <div>
+          Count: {this.getShowCount()}
         </div>
       </div>
     );
