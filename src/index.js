@@ -5,7 +5,8 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 // import Hello from './Hello/Hello';
-import Todo from './Todo';
+// import Todo from './Todo';
+import Todo from './Todo-mobx';
 
 ReactDOM.render(<Todo />, document.getElementById('root'));
 
