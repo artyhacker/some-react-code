@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { Input, Checkbox, Radio } from 'antd';
 import {decorate, observable, computed} from 'mobx';
 import {observer} from 'mobx-react';
+import TodoList from './TodoListStore';
+import TodoListView from './TodoListView';
 
 const RadioGroup = Radio.Group;
 
@@ -17,31 +19,6 @@ const listStyle = {
   overflow: 'auto',
   marginTop: '.5rem',
 };
-
-class TodoList {
-  todos = [];
-  get todoCount() {
-    return this.todos.filter(t => !t.done).length;
-  }
-  addTodo(todo) {
-    if (todo.text) {
-      this.todos.push({...todo, id: Math.random()});
-    }
-  }
-  changeState(todo) {
-    this.todos = this.todos.map(t => {
-      if (t.id === todo.id) {
-        return {...t, done: !t.done};
-      }
-      return t;
-    })
-  }
-}
-
-decorate(TodoList, {
-  todos: observable,
-  todoCount: computed,
-});
 
 class Todo {
   text = '';
@@ -64,35 +41,6 @@ const TodoView = observer(class Todo extends Component {
 
   render() {
 
-    function getTodosView(filterText) {
-      let list = [];
-      switch (filterText) {
-        case 'todo':
-          list = todoList.todos.filter(t => !t.done);
-          break;
-        case 'done':
-          list = todoList.todos.filter(t => t.done);
-          break;
-        default:
-          list = todoList.todos;
-          break;
-      }
-      return list.map(t => (
-        <div key={t.id}>
-          <Checkbox
-            checked={t.done}
-            onChange={() => todoList.changeState(t)}
-            style={{
-              textDecorationLine: t.done ? 'line-through' : 'none',
-              color: t.done ? '#555555' : '',
-            }}
-          >
-            {t.text}
-          </Checkbox>
-        </div>
-      ));
-    }
-
     function addTodo() {
       todoList.addTodo(editTodo);
       editTodo.text = '';
@@ -108,7 +56,7 @@ const TodoView = observer(class Todo extends Component {
           style={{ width: '98%' }}
         />
         <div style={listStyle}>
-          {getTodosView(this.filterText)}
+          <TodoListView filterText={this.filterText} todoList={todoList} />
         </div>
         <div style={{marginTop: '.5rem'}}>
           <RadioGroup value={this.filterText} onChange={e => this.filterText = e.target.value}>
