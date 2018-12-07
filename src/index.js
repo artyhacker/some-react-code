@@ -6,9 +6,19 @@ import * as serviceWorker from './serviceWorker';
 
 // import Hello from './Hello/Hello';
 // import Todo from './Todo';
-import Todo from './Todo-mobx';
+// import Todo from './Todo-mobx';
 
-ReactDOM.render(<Todo />, document.getElementById('root'));
+import Todo from './Todo-redux';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import reducers from './Todo-redux/reducers';
+const store = createStore(reducers);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <Todo />
+  </Provider>,
+  document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
