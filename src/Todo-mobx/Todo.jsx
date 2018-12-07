@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { Input, Checkbox, Radio } from 'antd';
-import {decorate, observable, computed} from 'mobx';
+import { Input, Radio } from 'antd';
+import {decorate, observable} from 'mobx';
 import {observer} from 'mobx-react';
 import TodoList from './TodoListStore';
 import TodoListView from './TodoListView';
