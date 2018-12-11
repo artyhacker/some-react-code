@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import * as Actions from './actions';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import { Input, Checkbox, Radio } from 'antd';
+import { Input, Checkbox, Radio, Button, Icon } from 'antd';
 
 const RadioGroup = Radio.Group;
 
@@ -20,10 +20,11 @@ const listStyle = {
 };
 
 const propTypes = {
+  fetchList: PropTypes.func.isRequired,
   list: PropTypes.array.isRequired,
   filter: PropTypes.string.isRequired,
-  addTodo: PropTypes.func.isRequired,
-  changeStatus: PropTypes.func.isRequired,
+  fetchAddTodo: PropTypes.func.isRequired,
+  fetchUpdateTodo: PropTypes.func.isRequired,
   changeFilter: PropTypes.func.isRequired,
 };
 
@@ -33,22 +34,34 @@ class TodoContainer extends Component {
     this.state = {
       editText: '',
     };
-    this.addTodo = this.addTodo.bind(this);
+    this.fetchAddTodo = this.fetchAddTodo.bind(this);
     this.onClickTodo = this.onClickTodo.bind(this);
     this.getTodosView = this.getTodosView.bind(this);
+    this.onClickFresh = this.onClickFresh.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.fetchList();
+  }
+
+  onClickFresh() {
+    this.props.fetchList();
   }
 
   onClickTodo(todo) {
-    this.props.changeStatus(todo);
+    this.props.fetchUpdateTodo({...todo, done: todo.done === 0 ? 1 : 0});
   }
 
   onChangeFilter(filter) {
     this.props.changeFilter(filter);
   }
 
-  addTodo() {
+  fetchAddTodo() {
     if (this.state.editText) {
-      this.props.addTodo(this.state.editText);
+      this.props.fetchAddTodo({
+        text: this.state.editText,
+        done: 0,
+      });
       this.setState({
         editText: '',
       })
@@ -85,14 +98,23 @@ class TodoContainer extends Component {
   }
 
   render() {
+    const addonAfter = (
+      <Button
+        onClick={this.onClickFresh}
+      >
+        <Icon type="redo" />
+      </Button>
+    );
+
     return(
       <div style={appStyle}>
         <Input
           placeholder="input & press Enter to add a todo"
           value={this.state.editText}
           onChange={e => this.setState({editText: e.target.value})}
-          onPressEnter={this.addTodo}
+          onPressEnter={this.fetchAddTodo}
           style={{ width: '98%' }}
+          addonAfter={addonAfter}
         />
         <div style={listStyle}>
           {this.getTodosView()}
@@ -118,8 +140,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addTodo: text => dispatch(Actions.addTodo(text)),
-  changeStatus: todo => dispatch(Actions.changeStatus(todo)),
+  fetchList: () => dispatch(Actions.fetchTodoList()),
+  fetchAddTodo: todo => dispatch(Actions.fetchAddTodo(todo)),
+  fetchUpdateTodo: todo => dispatch(Actions.fetchUpdateTodo(todo)),
   changeFilter: filter => dispatch(Actions.changeFilter(filter)),
 });
 

@@ -3,12 +3,14 @@ import {combineReducers} from 'redux';
 
 const list = (state = [], action) => {
   switch (action.type) {
+    case Types.GET_LIST:
+      return action.data;
     case Types.ADD_TODO:
       return [action.todo, ...state];
     case Types.CHANGE_STATUS:
       return state.map(t => {
         if (t.id === action.todo.id) {
-          return {...t, done: !t.done};
+          return action.todo;
         }
         return t;
       });
