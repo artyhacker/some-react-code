@@ -1,4 +1,4 @@
-const BASE_URL = 'http://192.168.31.211:3001';
+const BASE_URL = 'http://172.20.10.5:3001';
 
 export const getTodoListUrl = () => `${BASE_URL}/todos`;
 

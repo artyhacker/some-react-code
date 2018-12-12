@@ -1,6 +1,6 @@
 import * as Types from './constants';
 import * as API from './api';
-import fetch from 'isomorphic-fetch';
+import axios from 'axios';
 
 const addTodo = todo => ({
   type: Types.ADD_TODO,
@@ -23,12 +23,13 @@ const getTodoList = data => ({
 });
 
 export const fetchTodoList = () => dispatch => {
-  fetch(API.getTodoListUrl(), {method: 'GET'})
+  axios.get(API.getTodoListUrl())
     .then(response => {
-      if (!response.ok) {
+      console.log(response);
+      if (!response.statusText === 'OK') {
         throw new Error('fetch list error');
       }
-      return response.json();
+      return response.data;
     })
     .then(data => {
       dispatch(getTodoList(data));
@@ -39,19 +40,13 @@ export const fetchTodoList = () => dispatch => {
 };
 
 export const fetchAddTodo = (todo) => dispatch => {
-  fetch(API.addTodoUrl(), {
-    method: 'POST',
-    header: {
-      Accept: 'application/json; charset=utf-8',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(todo),
-  })
+  console.log(todo);
+  axios.post(API.addTodoUrl(), todo)
     .then(response => {
-      if (!response.ok) {
+      if (!response.statusText === 'OK') {
         throw new Error('fetch add error');
       }
-      return response.json();
+      return response.data;
     })
     .then(data => {
       dispatch(addTodo(data));
@@ -62,15 +57,12 @@ export const fetchAddTodo = (todo) => dispatch => {
 };
 
 export const fetchUpdateTodo = (todo) => dispatch => {
-  fetch(API.putTodoUrl(todo.id), {
-    method: 'PUT',
-    body: JSON.stringify(todo),
-  })
+  axios.put(API.putTodoUrl(todo.id), todo)
     .then(response => {
-      if (!response.ok) {
+      if (!response.statusText === 'OK') {
         throw new Error('fetch add error');
       }
-      return response.json();
+      return response.data;
     })
     .then(data => {
       dispatch(changeStatus(data));
