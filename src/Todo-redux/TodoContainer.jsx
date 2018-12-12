@@ -29,34 +29,27 @@ const propTypes = {
 };
 
 class TodoContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      editText: '',
-    };
-    this.fetchAddTodo = this.fetchAddTodo.bind(this);
-    this.onClickTodo = this.onClickTodo.bind(this);
-    this.getTodosView = this.getTodosView.bind(this);
-    this.onClickFresh = this.onClickFresh.bind(this);
-  }
+  state = {
+    editText: '',
+  };
 
   componentDidMount() {
     this.props.fetchList();
   }
 
-  onClickFresh() {
+  onClickFresh = () => {
     this.props.fetchList();
-  }
+  };
 
-  onClickTodo(todo) {
+  onClickTodo = (todo) => {
     this.props.fetchUpdateTodo({...todo, done: todo.done === 0 ? 1 : 0});
-  }
+  };
 
-  onChangeFilter(filter) {
+  onChangeFilter = (filter) => {
     this.props.changeFilter(filter);
-  }
+  };
 
-  fetchAddTodo() {
+  fetchAddTodo = () => {
     if (this.state.editText) {
       this.props.fetchAddTodo({
         text: this.state.editText,
@@ -66,9 +59,9 @@ class TodoContainer extends Component {
         editText: '',
       })
     }
-  }
+  };
 
-  getTodosView() {
+  getTodosView = () => {
     let list = [];
     switch (this.props.filter) {
       case 'todo':
@@ -95,7 +88,7 @@ class TodoContainer extends Component {
         </Checkbox>
       </div>
     ));
-  }
+  };
 
   render() {
     const addonAfter = (
