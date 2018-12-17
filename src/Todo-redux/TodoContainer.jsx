@@ -19,6 +19,10 @@ const listStyle = {
   marginTop: '.5rem',
 };
 
+const todoItemStyle = {
+  padding: '.2rem 0',
+};
+
 const propTypes = {
   fetchList: PropTypes.func.isRequired,
   list: PropTypes.array.isRequired,
@@ -75,7 +79,7 @@ class TodoContainer extends Component {
         break;
     }
     return list.map(todo => (
-      <div key={todo.id}>
+      <div key={todo.id} style={todoItemStyle}>
         <Checkbox
           checked={todo.done}
           onChange={() => this.onClickTodo(todo)}

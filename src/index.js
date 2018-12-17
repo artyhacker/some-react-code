@@ -5,19 +5,13 @@ import './index.css';
 // import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-// import Hello from './Hello/Hello';
-// import Todo from './Todo';
-// import Todo from './Todo-mobx';
-
 import Todo from './Todo-redux';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import reducers from './Todo-redux/reducers';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import {polyfill} from 'es6-promise';
-
-polyfill();
+import TodoContainer from './TodoContainer';
 
 const loggerMiddleware = createLogger();
 const store = createStore(
@@ -30,7 +24,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <Todo />
+    <TodoContainer />
   </Provider>,
   document.getElementById('root'));
 
