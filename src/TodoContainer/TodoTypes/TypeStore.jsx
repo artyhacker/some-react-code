@@ -1,15 +1,16 @@
-import {decorate, observable} from 'mobx';
+import {decorate, observable, action} from 'mobx';
 
 class TypeStore {
   list = [];
 
-  getList = () => {
-    return this.list;
-  };
+  selectedItem = {};
 
   refreshList = (dataList) => {
     this.list = dataList;
-    console.log('refresh ', dataList);
+  };
+
+  setItem = item => {
+    this.selectedItem = item;
   };
 
   addType = (item) => {
@@ -33,6 +34,12 @@ class TypeStore {
 
 decorate(TypeStore, {
   list: observable,
+  selectedItem: observable,
+  setItem: action,
+  refreshList: action,
+  addType: action,
+  deleteType: action,
+  updateType: action,
 });
 
-export default TypeStore;
+export default new TypeStore();

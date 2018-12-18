@@ -25,7 +25,6 @@ const getTodoList = data => ({
 export const fetchTodoList = () => dispatch => {
   axios.get(API.getTodoListUrl())
     .then(response => {
-      console.log(response);
       if (!response.statusText === 'OK') {
         throw new Error('fetch list error');
       }
