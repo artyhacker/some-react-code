@@ -18,7 +18,7 @@ const TodoTypes = observer(class TodoTypes extends Component {
   onSelect = (keys, e) => {
     if (e.selected) {
       const item = this.props.TypeStore.list.filter(t => t.id === parseInt(keys[0], 10))[0];
-      console.log(item);
+      this.props.TodoStore.fetchList({typeId: item.id});
       this.props.TypeStore.selectedItem = item;
     } else {
       this.props.TypeStore.selectedItem = {};

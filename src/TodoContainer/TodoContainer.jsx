@@ -1,18 +1,19 @@
 import React, {Component} from 'react';
 import classes from './styles/TodoContainer.css';
-import TodoList from '../Todo-redux';
+import TodoList from './components/TodoList';
 import TodoTypes from './components/TodoTypes';
 import TypeStore from './stores/TypeStore';
+import TodoStore from './stores/TodoStore';
 
 class TodoContainer extends Component {
   render() {
     return(
       <div className={classes.container}>
         <div className={classes.types}>
-          <TodoTypes TypeStore={TypeStore} />
+          <TodoTypes TypeStore={TypeStore} TodoStore={TodoStore} />
         </div>
         <div className={classes.todos}>
-          <TodoList />
+          <TodoList TypeStore={TypeStore} TodoStore={TodoStore} />
         </div>
       </div>
     );
