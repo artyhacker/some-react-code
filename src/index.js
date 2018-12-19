@@ -10,6 +10,7 @@ import {Provider} from 'react-redux';
 import reducers from './Todo-redux/reducers';
 import thunkMiddleware from 'redux-thunk';
 import TodoContainer from './TodoContainer';
+import '../node_modules/antd/dist/antd.css';
 
 const store = createStore(
   reducers,
