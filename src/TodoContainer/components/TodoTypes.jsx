@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import {decorate, observable} from 'mobx';
 import {Button, Popconfirm, Icon} from 'antd';
-import TypeStore from '../stores/TypeStore';
 import TodoTypesTree from './TodoTypesTree';
 import TodoTypeEditModal from './TodoTypeEditModal';
 
@@ -13,55 +12,55 @@ const TodoTypes = observer(class TodoTypes extends Component {
   modalVisible = false;
 
   componentDidMount() {
-    TypeStore.fetchTypes();
+    this.props.TypeStore.fetchTypes();
   }
 
   onSelect = (keys, e) => {
     if (e.selected) {
-      const item = TypeStore.list.filter(t => t.id === parseInt(keys[0], 10))[0];
+      const item = this.props.TypeStore.list.filter(t => t.id === parseInt(keys[0], 10))[0];
       console.log(item);
-      TypeStore.selectedItem = item;
+      this.props.TypeStore.selectedItem = item;
     } else {
-      TypeStore.selectedItem = {};
+      this.props.TypeStore.selectedItem = {};
     }
   };
 
   onClickAdd = () => {
-    TypeStore.editItem = {};
+    this.props.TypeStore.editItem = {};
     this.modalVisible = true;
   };
 
   onClickEdit = () => {
-    TypeStore.editItem = {...TypeStore.selectedItem};
+    this.props.TypeStore.editItem = {...this.props.TypeStore.selectedItem};
     this.modalVisible = true;
   };
 
   onClickDelete = () => {
-    TypeStore.fetchDeleteType(TypeStore.selectedItem);
+    this.props.TypeStore.fetchDeleteType(this.props.TypeStore.selectedItem);
   };
 
   onOk = () => {
-    if (TypeStore.editItem.id) {
+    if (this.props.TypeStore.editItem.id) {
       // edit
-      TypeStore.fetchUpdateType(TypeStore.editItem);
+      this.props.TypeStore.fetchUpdateType(this.props.TypeStore.editItem);
     } else {
       // add
-      TypeStore.fetchAddType({
-        ...TypeStore.editItem,
-        pId: TypeStore.selectedItem.id,
-        layer: TypeStore.selectedItem.layer + 1,
+      this.props.TypeStore.fetchAddType({
+        ...this.props.TypeStore.editItem,
+        pId: this.props.TypeStore.selectedItem.id,
+        layer: this.props.TypeStore.selectedItem.layer + 1,
       });
     }
     this.onCancel();
   };
 
   onCancel = () => {
-    TypeStore.editItem = {};
+    this.props.TypeStore.editItem = {};
     this.modalVisible = false;
   };
 
   setName = e => {
-    TypeStore.editItem.name = e.target.value;
+    this.props.TypeStore.editItem.name = e.target.value;
   };
 
   render() {
@@ -70,30 +69,30 @@ const TodoTypes = observer(class TodoTypes extends Component {
         <div style={{textAlign: 'center'}}>
           <ButtonGroup>
             <Button type="primary" onClick={this.onClickAdd}>
-              <Icon type={TypeStore.selectedItem.id ? 'share-alt' : 'plus'} />
+              <Icon type={this.props.TypeStore.selectedItem.id ? 'share-alt' : 'plus'} />
             </Button>
             <Popconfirm
               title="确认删除?"
               onConfirm={this.onClickDelete}
             >
-              <Button disabled={!TypeStore.selectedItem.id}><Icon type="delete"/></Button>
+              <Button disabled={!this.props.TypeStore.selectedItem.id}><Icon type="delete"/></Button>
             </Popconfirm>
             <Button
               type="primary"
               onClick={this.onClickEdit}
-              disabled={!TypeStore.selectedItem.id}
+              disabled={!this.props.TypeStore.selectedItem.id}
             ><Icon type="edit"/></Button>
           </ButtonGroup>
         </div>
         <TodoTypesTree
-          listStore={TypeStore}
+          listStore={this.props.TypeStore}
           onSelect={this.onSelect}
         />
         <TodoTypeEditModal
           visible={this.modalVisible}
           onOk={this.onOk}
           onCancel={this.onCancel}
-          TypeStore={TypeStore}
+          TypeStore={this.props.TypeStore}
           setName={this.setName}
         />
       </div>

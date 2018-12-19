@@ -43,8 +43,6 @@ class TypeStore {
   };
 
   fetchUpdateType = item => {
-    console.log(item);
-    console.log(this.list);
     axios.put(API.putTypeUrl(item.id), item)
       .then(response => {
         if (response.statusText !== 'OK') {
