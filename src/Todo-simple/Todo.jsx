@@ -17,20 +17,15 @@ const listStyle = {
 };
 
 class Todo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      list: [],
-      editText: '',
-      filter: 'all',
-      showCount: 0,
-    };
-    this.addTodo = this.addTodo.bind(this);
-    this.onClickTodo = this.onClickTodo.bind(this);
-    this.getTodosView = this.getTodosView.bind(this);
-  }
 
-  onClickTodo(todo) {
+  state = {
+    list: [],
+    editText: '',
+    filter: 'all',
+    showCount: 0,
+  };
+
+  onClickTodo = todo => {
     this.setState({
       list: this.state.list.map(t => {
         if (t.id === todo.id) {
@@ -42,13 +37,13 @@ class Todo extends Component {
         return t;
       }),
     });
-  }
+  };
 
-  onChangeFilter(filter) {
+  onChangeFilter = filter => {
     this.setState({filter});
-  }
+  };
 
-  addTodo() {
+  addTodo = () => {
     if (this.state.editText) {
       this.setState({
         list: [
@@ -62,9 +57,9 @@ class Todo extends Component {
         editText: '',
       })
     }
-  }
+  };
 
-  getTodosView() {
+  getTodosView = () => {
     let list = [];
     switch (this.state.filter) {
       case 'todo':
@@ -91,9 +86,9 @@ class Todo extends Component {
         </Checkbox>
       </div>
     ));
-  }
+  };
 
-  getShowCount() {
+  getShowCount = () => {
     switch (this.state.filter) {
       case 'todo':
         return this.state.list.filter(t => !t.done).length;
@@ -102,7 +97,7 @@ class Todo extends Component {
       default:
         return this.state.list.length;
     }
-  }
+  };
 
   render() {
     return (
