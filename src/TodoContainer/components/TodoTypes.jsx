@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import {decorate, observable} from 'mobx';
-import {Button, Popconfirm} from 'antd';
+import {Button, Popconfirm, Icon} from 'antd';
 import TypeStore from '../stores/TypeStore';
 import TodoTypesTree from './TodoTypesTree';
 import TodoTypeEditModal from './TodoTypeEditModal';
@@ -67,16 +67,22 @@ const TodoTypes = observer(class TodoTypes extends Component {
   render() {
     return (
       <div>
-        <div>
+        <div style={{textAlign: 'center'}}>
           <ButtonGroup>
-            <Button type="primary" onClick={this.onClickAdd}>ADD</Button>
+            <Button type="primary" onClick={this.onClickAdd}>
+              <Icon type={TypeStore.selectedItem.id ? 'share-alt' : 'plus'} />
+            </Button>
             <Popconfirm
               title="确认删除?"
               onConfirm={this.onClickDelete}
             >
-              <Button disabled={!TypeStore.selectedItem.id}>DELETE</Button>
+              <Button disabled={!TypeStore.selectedItem.id}><Icon type="delete"/></Button>
             </Popconfirm>
-            <Button type="primary" onClick={this.onClickEdit} disabled={!TypeStore.selectedItem.id}>EDIT</Button>
+            <Button
+              type="primary"
+              onClick={this.onClickEdit}
+              disabled={!TypeStore.selectedItem.id}
+            ><Icon type="edit"/></Button>
           </ButtonGroup>
         </div>
         <TodoTypesTree
