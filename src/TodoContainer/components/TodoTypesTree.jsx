@@ -13,7 +13,7 @@ const getTreeNodes = (list, pId) => {
   })
 };
 
-const TypeTree = observer(({listStore, onSelect}) => (
+const TodoTypesTree = observer(({listStore, onSelect}) => (
   <Tree
     showLine
     showIcon={false}
@@ -24,4 +24,4 @@ const TypeTree = observer(({listStore, onSelect}) => (
   </Tree>
 ));
 
-export default TypeTree;
+export default TodoTypesTree;

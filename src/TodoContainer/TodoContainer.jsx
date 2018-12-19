@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import classes from './TodoContainer.css';
+import classes from './styles/TodoContainer.css';
 import TodoList from '../Todo-redux';
-import TodoTypes from './TodoTypes';
+import TodoTypes from './components/TodoTypes';
 
 class TodoContainer extends Component {
   render() {
