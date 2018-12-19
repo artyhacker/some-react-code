@@ -7,9 +7,10 @@ import { Input, Checkbox, Radio, Button, Icon } from 'antd';
 const RadioGroup = Radio.Group;
 
 const appStyle = {
-  width: 600,
+  width: '100%',
   maxHeight: 800,
-  margin: '1rem auto',
+  marginLeft: '.2rem',
+  fontSize: 'larger',
 };
 
 const listStyle = {
@@ -95,14 +96,6 @@ class TodoContainer extends Component {
   };
 
   render() {
-    const addonAfter = (
-      <Button
-        onClick={this.onClickFresh}
-      >
-        <Icon type="redo" />
-      </Button>
-    );
-
     return(
       <div style={appStyle}>
         <Input
@@ -110,21 +103,19 @@ class TodoContainer extends Component {
           value={this.state.editText}
           onChange={e => this.setState({editText: e.target.value})}
           onPressEnter={this.fetchAddTodo}
-          style={{ width: '98%' }}
-          addonAfter={addonAfter}
         />
         <div style={listStyle}>
           {this.getTodosView()}
         </div>
-        <div style={{marginTop: '.5rem'}}>
+        <div style={{margin: '.5rem'}}>
           <RadioGroup value={this.props.filter} onChange={e => this.onChangeFilter(e.target.value)}>
             <Radio value="all">ALL</Radio>
             <Radio value="todo">TODO</Radio>
             <Radio value="done">DONE</Radio>
           </RadioGroup>
-        </div>
-        <div>
-          Unfinished Count: {this.props.list.filter(t => !t.done).length}
+          <span style={{ float: 'right' }}>
+            Unfinished Count: {this.props.list.filter(t => !t.done).length}
+          </span>
         </div>
       </div>
     );
