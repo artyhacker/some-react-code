@@ -11,6 +11,7 @@
 :local .types {
   flex: 1;
   border-right: 1px solid #e2e2e2;
+  overflow: auto;
 }
 
 :local .todos {

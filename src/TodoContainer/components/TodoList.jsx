@@ -14,7 +14,7 @@ const appStyle = {
 
 const listStyle = {
   width: '100%',
-  maxHeight: 500,
+  maxHeight: 740,
   overflow: 'auto',
   marginTop: '.5rem',
 };
