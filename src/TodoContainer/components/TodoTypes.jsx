@@ -68,19 +68,24 @@ const TodoTypes = observer(class TodoTypes extends Component {
       <div>
         <div style={{textAlign: 'center'}}>
           <ButtonGroup>
-            <Button type="primary" onClick={this.onClickAdd}>
+            <Button
+              type="primary"
+              onClick={this.onClickAdd}
+              title={this.props.TypeStore.selectedItem.id ? '添加子类' : '添加类别'}
+            >
               <Icon type={this.props.TypeStore.selectedItem.id ? 'share-alt' : 'plus'} />
             </Button>
             <Popconfirm
               title="确认删除?"
               onConfirm={this.onClickDelete}
             >
-              <Button disabled={!this.props.TypeStore.selectedItem.id}><Icon type="delete"/></Button>
+              <Button disabled={!this.props.TypeStore.selectedItem.id} title="删除类别"><Icon type="delete"/></Button>
             </Popconfirm>
             <Button
               type="primary"
               onClick={this.onClickEdit}
               disabled={!this.props.TypeStore.selectedItem.id}
+              title="编辑名称"
             ><Icon type="edit"/></Button>
           </ButtonGroup>
         </div>
