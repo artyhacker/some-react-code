@@ -24,6 +24,10 @@ const TodoTypes = observer(class TodoTypes extends Component {
       this.props.TypeStore.selectedItem = {};
     }
   };
+  
+  onExpand = (keys) => {
+    this.props.TypeStore.expandedKeys = keys;
+  };
 
   onClickAdd = () => {
     this.props.TypeStore.editItem = {};
@@ -92,6 +96,7 @@ const TodoTypes = observer(class TodoTypes extends Component {
         <TodoTypesTree
           listStore={this.props.TypeStore}
           onSelect={this.onSelect}
+          onExpand={this.onExpand}
         />
         <TodoTypeEditModal
           visible={this.modalVisible}

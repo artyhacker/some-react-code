@@ -10,6 +10,8 @@ class TypeStore {
 
   editItem = {};
 
+  expandedKeys = [];
+
   fetchTypes = () => {
     axios.get(API.getTodoTypesUrl())
       .then(response => {
@@ -20,6 +22,7 @@ class TypeStore {
       })
       .then(data => {
         this.list = data;
+        this.expandedKeys = data.filter(t => t.layer < 3).map(p => `${p.id}`);
       })
       .catch(e => {
         message.error('获取类别列表失败');
@@ -80,6 +83,7 @@ class TypeStore {
 
 decorate(TypeStore, {
   list: observable,
+  expandedKeys: observable,
   selectedItem: observable,
   editItem: observable,
   fetchTypes: action,

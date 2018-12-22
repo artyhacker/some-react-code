@@ -13,12 +13,13 @@ const getTreeNodes = (list, pId) => {
   })
 };
 
-const TodoTypesTree = observer(({listStore, onSelect}) => (
+const TodoTypesTree = observer(({listStore, onSelect, onExpand}) => (
   <Tree
     showLine
     showIcon={false}
     onSelect={onSelect}
-    defaultExpandAll
+    onExpand={onExpand}
+    expandedKeys={listStore.expandedKeys}
   >
     {getTreeNodes(listStore.list, null)}
   </Tree>
