@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { Input, Checkbox, Radio } from 'antd';
+import { Input, Radio } from 'antd';
 import {observer} from "mobx-react";
 import {decorate, observable} from "mobx";
+import TodoListView from './TodoListView';
 
 const RadioGroup = Radio.Group;
 
@@ -17,10 +18,6 @@ const listStyle = {
   maxHeight: 740,
   overflow: 'auto',
   marginTop: '.5rem',
-};
-
-const todoItemStyle = {
-  padding: '.2rem 0',
 };
 
 const TodoList = observer(class TodoList extends Component {
@@ -50,25 +47,25 @@ const TodoList = observer(class TodoList extends Component {
     }
   };
 
-  getTodosView = () => {
-    if (this.TodoStore.getShowList.length === 0) {
-      return <div style={{ textAlign: 'center' }}>恭喜,全部完成了!</div>
-    }
-    return this.TodoStore.getShowList.map(todo => (
-      <div key={todo.id} style={todoItemStyle}>
-        <Checkbox
-          checked={todo.done}
-          onChange={() => this.onClickTodo(todo)}
-          style={{
-            textDecorationLine: todo.done ? 'line-through' : 'none',
-            color: todo.done ? '#555555' : '',
-          }}
-        >
-          {todo.text}
-        </Checkbox>
-      </div>
-    ));
-  };
+  // getTodosView = () => {
+  //   if (this.TodoStore.getShowList.length === 0) {
+  //     return <div style={{ textAlign: 'center' }}>恭喜,全部完成了!</div>
+  //   }
+  //   return this.TodoStore.getShowList.map(todo => (
+  //     <div key={todo.id} style={todoItemStyle}>
+  //       <Checkbox
+  //         checked={todo.done}
+  //         onChange={() => this.onClickTodo(todo)}
+  //         style={{
+  //           textDecorationLine: todo.done ? 'line-through' : 'none',
+  //           color: todo.done ? '#555555' : '',
+  //         }}
+  //       >
+  //         {todo.text}
+  //       </Checkbox>
+  //     </div>
+  //   ));
+  // };
 
   changeEditText = e => {
     this.editText = e.target.value;
@@ -85,7 +82,7 @@ const TodoList = observer(class TodoList extends Component {
           readOnly={!this.props.TypeStore.selectedItem.id}
         />
         <div style={listStyle}>
-          {this.getTodosView()}
+          <TodoListView TodoStore={this.props.TodoStore} onClickTodo={this.onClickTodo} />
         </div>
         <div style={{margin: '.5rem'}}>
           <RadioGroup value={this.TodoStore.filter} onChange={this.onChangeFilter}>
