@@ -70,7 +70,7 @@ const TodoTypes = observer(class TodoTypes extends Component {
   render() {
     return (
       <div>
-        <div style={{textAlign: 'center'}}>
+        <div style={{textAlign: 'center', marginBottom: '.5rem'}}>
           <ButtonGroup>
             <Button
               type="primary"

@@ -4,7 +4,7 @@ import React from "react";
 
 const itemStyle = index => ({
   padding: '.2rem 0',
-  backgroundColor: index % 2 === 0 ? '' : '#e2e2e2',
+  backgroundColor: index % 2 === 0 ? '' : 'rgba(0,0,0,0.1)',
 });
 
 const TodoListView = observer(({TodoStore, onClickTodo}) => {

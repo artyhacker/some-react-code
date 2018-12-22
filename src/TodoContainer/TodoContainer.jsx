@@ -1,21 +1,27 @@
 import React, {Component} from 'react';
-import classes from './styles/TodoContainer.css';
+import {Layout} from "antd";
 import TodoList from './components/TodoList';
 import TodoTypes from './components/TodoTypes';
 import TypeStore from './stores/TypeStore';
 import TodoStore from './stores/TodoStore';
 
+const {Sider, Content} = Layout;
+
+const whiteStyle = {
+  background: '#fff',
+};
+
 class TodoContainer extends Component {
   render() {
     return(
-      <div className={classes.container}>
-        <div className={classes.types}>
+      <Layout style={{ width: '100vw', height: '100vh', padding: '.5rem' }}>
+        <Sider style={whiteStyle}>
           <TodoTypes TypeStore={TypeStore} TodoStore={TodoStore} />
-        </div>
-        <div className={classes.todos}>
+        </Sider>
+        <Content style={whiteStyle}>
           <TodoList TypeStore={TypeStore} TodoStore={TodoStore} />
-        </div>
-      </div>
+        </Content>
+      </Layout>
     );
   }
 }
