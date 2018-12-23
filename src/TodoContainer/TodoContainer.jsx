@@ -14,7 +14,7 @@ const whiteStyle = {
 class TodoContainer extends Component {
   render() {
     return(
-      <Layout style={{ width: '100vw', height: '100vh', padding: '.5rem' }}>
+      <Layout style={{ ...whiteStyle }}>
         <Sider style={whiteStyle}>
           <TodoTypes TypeStore={TypeStore} TodoStore={TodoStore} />
         </Sider>
