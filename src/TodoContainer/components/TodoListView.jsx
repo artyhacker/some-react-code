@@ -1,5 +1,5 @@
 import {observer} from "mobx-react";
-import {Checkbox} from "antd";
+import {Checkbox, Icon} from "antd";
 import React from "react";
 import moment from 'moment';
 
@@ -8,7 +8,7 @@ const itemStyle = index => ({
   backgroundColor: index % 2 === 0 ? '' : 'rgba(0,0,0,0.1)',
 });
 const timeStyle = {
-  color: '#e2e2e2',
+  color: '#b2b2b2',
   marginLeft: '1rem',
   fontSize: 'smaller',
   textDecorationLine: 'none',
@@ -36,6 +36,9 @@ const TodoListView = observer(({TodoStore, onClickTodo}) => {
       >
         {getText(todo)}
       </Checkbox>
+      <span onClick={() => TodoStore.fetchDelete(todo)} style={{ color: '#b2b2b2' }}>
+        <Icon type="delete" />
+      </span>
     </div>
   ));
 });
